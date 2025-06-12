@@ -84,13 +84,17 @@ canvas {
   width: 100%;
   text-align: center;
   z-index: 3;
-  color: rgb(245, 202, 202);
+  color: rgb(243, 230, 230);
   font-size: 1.8em;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* 👇 Thêm đổ bóng để làm nổi bật chữ */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
 }
+
 
 .line {
   opacity: 0;
