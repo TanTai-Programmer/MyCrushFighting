@@ -1,133 +1,168 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  font-family: 'Segoe UI', sans-serif;
-  height: 100%;
-  color: #ffffff;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-.background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  overflow: hidden;
-}
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
 
-.bg-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  filter: brightness(0.5);
-}
+    #intro {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(270deg, #ff9a9e, #f8da9a, #d2e75b, #c4fac8, #9af3ff, #b59aff);
+      background-size: 600% 600%;
+      animation: gradientBG 10s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      font-size: 2rem;
+      padding: 2rem;
+      cursor: pointer;
+      animation: gradientBG 10s ease infinite;
+    }
 
-.gradient-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(-45deg, rgba(236, 137, 140, 0.5), rgba(108, 245, 222, 0.5), rgba(212, 91, 178, 0.5), rgba(102, 56, 207, 0.5));
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  z-index: -1;
-}
+    #intro::before {
+      content: attr(data-text);
+      animation: blinkText 3s ease-in-out infinite;
+      display: inline-block;
+    }
 
-@keyframes gradientBG {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
-}
+    @keyframes blinkText {
 
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-}
+      0%,
+      100% {
+        opacity: 1;
+      }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  color: rgb(241, 121, 121);
-  font-size: 2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  animation: pulseOpacity 3s ease-in-out infinite;
-}
-
-@keyframes pulseOpacity {
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }
-}
-
-.lyric {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  text-align: center;
-  z-index: 3;
-  color: rgb(243, 230, 230);
-  font-size: 1.8em;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  /* 👇 Thêm đổ bóng để làm nổi bật chữ */
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
-}
+      50% {
+        opacity: 0.3;
+      }
+    }
 
 
-.line {
-  opacity: 0;
-  animation: fadeUp 1s forwards;
-  margin: 5px 0;
-}
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+      50% {
+        background-position: 100% 50%;
+      }
 
-.line-slide-up {
-  animation: slideUp 0.8s forwards;
-}
+      100% {
+        background-position: 0% 50%;
+      }
+    }
 
-@keyframes slideUp {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-}
+    #main {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('img/Xuanni.jpg') center/cover no-repeat;
+      display: none;
+    }
 
-.hidden {
-  display: none;
-}
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    #text-container {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      color: white;
+      font-size: 1.8rem;
+      text-align: center;
+      width: 80%;
+      max-width: 800px;
+      height: 12em;
+      overflow: hidden;
+    }
+
+    .line-list {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .line {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      text-shadow: #ff6699 0px 0px 10px;
+      transition: bottom 0.5s ease, opacity 0.5s ease;
+    }
+
+    .line.show {
+      opacity: 1;
+    }
+
+    .falling {
+      position: absolute;
+      top: -50px;
+      pointer-events: none;
+      animation: fall linear infinite;
+      opacity: 0.7;
+      border-radius: 50%;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px) rotate(0);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      30% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .falling {
+      position: fixed;
+      animation: fall linear;
+      pointer-events: none;
+      z-index: 9999;
+      font-weight: bold;
+      color: #ff6699;
+      font-family: 'Segoe UI', sans-serif;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      white-space: nowrap;
+      user-select: none;
+    }
